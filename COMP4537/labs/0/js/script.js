@@ -1,10 +1,14 @@
 const numButtons = document.getElementById("numButtons")
 const goButton = document.getElementById("goButton")
 const buttonsContainer = document.getElementById("buttons")
-const messageDiv = document.getElementById("message");
+const messageDiv = document.getElementById("message")
 
+const promptDiv = document.getElementById("prompt")
+promptDiv.innerHTML= prompt
+const goDiv = document.getElementById("goButton")
+goDiv.innerHTML = buttonLabel
 
-document.getElementById("goButton").onclick = startGame
+goDiv.onclick = startGame
 
 class Button{
     constructor(xcor, ycor, index){
