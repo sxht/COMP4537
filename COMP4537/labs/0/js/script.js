@@ -5,9 +5,9 @@ const messageDiv = document.getElementById("message")
 
 const promptDiv = document.getElementById("prompt")
 promptDiv.innerHTML= prompt
+
 const goDiv = document.getElementById("goButton")
 goDiv.innerHTML = buttonLabel
-
 goDiv.onclick = startGame
 
 class Button{
