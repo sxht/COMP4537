@@ -22,6 +22,8 @@ function updateLocal(){
         notesArray.push(noteContent.value)
     })
     localStorage.setItem("notesArray", JSON.stringify(notesArray))
+    time = new Date()
+    document.getElementById("storeTime").innerHTML = time.toString()
 }
 
 class NoteBox{

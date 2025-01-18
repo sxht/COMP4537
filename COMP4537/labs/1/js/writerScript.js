@@ -12,7 +12,5 @@ addButton.onclick = function addNotes(){
 }
 
 setInterval(()=>{
-    updateLocal()
-    time = new Date()
-    document.getElementById("storeTime").innerHTML = time.toString()
+    updateLocal();
 }, 2000)

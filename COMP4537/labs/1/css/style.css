@@ -24,18 +24,11 @@ a {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 button:hover {
   background-color: #218838;
-}
-
-.noteBox {
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
 }
 
 .noteText {
