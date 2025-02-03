@@ -1,11 +1,13 @@
 const http = require('http');
 const url = require('url');
 const utils = require('./modules/utils');
+const en = require('./lang/en/en');
 
 http.createServer(function (req, res) {
     const q = url.parse(req.url, true);
+    const name = q.query.name;
+    const message = `<p style="color: blue">${en.greeting.replace("%1", name)} $utils.getDate()}</p>`;
     res.writeHead(200, {'Content-type':'text/html'});
-    const message = `<p style="color: blue">Hello ${q.query.name}. What a beautiful day. Server current date and time is ${utils.getDate()}</p>`
     res.end(message);
 });
 
