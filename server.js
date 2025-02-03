@@ -1,7 +1,7 @@
 const http = require('http');
 const url = require('url');
-const utils = require('./modules/utils');
-const en = require('./lang/en/en');
+const utils = require('./COMP4537/labs/3/modules/utils');
+const en = require('./COMP4537/labs/3/lang/en/en');
 
 http.createServer(function (req, res) {
     const q = url.parse(req.url, true);
