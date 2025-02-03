@@ -9,9 +9,7 @@ http.createServer(function (req, res) {
     const message = `<p style="color: blue">${en.greeting.replace("%1", name)} $utils.getDate()}</p>`;
     res.writeHead(200, {'Content-type':'text/html'});
     res.end(message);
-});
-
-server.listen(process.env.PORT, "0.0.0.0", () => {
+}).listen(process.env.PORT, "0.0.0.0", () => {
     console.log('listening ...');
 })
 
