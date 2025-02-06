@@ -5,26 +5,28 @@ const api = require('./COMP4537/labs/4/modules/utils');
 const en = require('./COMP4537/labs/4/lang/en/en');
 
 http.createServer(function (req, res) {
-
+    let reqCounter = 0;
     const q = url.parse(req.url, true);
 
     if(req.method==="GET" && q.pathname.includes("/api/definitions/")){
+        reqCounter++;
         console.log("get request sent")
         const word = q.query.word
-        const definition = api.getDefinition(word);
+        const entry = api.getDefinition(word);
 
         res.writeHead(200, {'Content-Type':'text/html', 
             "Access-Control-Allow-Origin":"*",
             "Access-Control-Allow-Methods":"*"
         });
 
-        if(definition){
-            res.end(`<p>${definition}</p>`);
+        if(entry){
+            res.end(`<p>${entry}</p>`);
         } else{
             res.end(`<p>${en.notFound}</p>`);
         }
 
     } else if(req.method==="POST" && q.pathname.includes("/api/definitions/")){
+        reqCounter++;
         console.log("Post request sent")
         if(req.headers["access-control-request-method"]){
             res.setHeader("Access-Control-Allow-Origin","*");
@@ -38,9 +40,10 @@ http.createServer(function (req, res) {
             req.on("end", function() {
                 let params = new URLSearchParams(query);
                 let word = params.get("word");
+                let definition = params.get("definition")
                 res.setHeader("Content-Type", "text/plain")
                 res.setHeader("Access-Control-Allow-Origin","*");
-                res.write(api.addDefinition(word));
+                res.write(api.addDefinition(word, definition, reqCounter));
                 res.end();
             })
         }

@@ -4,7 +4,7 @@ const en = require('../lang/en/en')
 module.exports.getDefinition = function(word){
     for(entry in dictionary){
         if(entry.word===word){
-            return entry.definition;
+            return {"word": word, "definition": entry.definition};
         }
     }
     return null;
