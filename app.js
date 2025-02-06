@@ -23,7 +23,7 @@ http.createServer(function (req, res) {
 
         if(entry!=null){
             console.log("entry found")
-            res.end(entry);
+            res.end(entry.stringify();
         } else{
             console.log("entry not found")
             res.end(`<p>${en.notFound}</p>`);
