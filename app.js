@@ -25,7 +25,7 @@ http.createServer(function (req, res) {
             console.log("entry found")
             res.end(`<p>${entry}</p>`);
         } else{
-            console.log("entry not found"+en.notFound)
+            console.log("entry not found")
             res.end(`<p>${en.notFound}</p>`);
         }
 
@@ -47,6 +47,7 @@ http.createServer(function (req, res) {
                 let definition = params.get("definition")
                 res.setHeader("Content-Type", "text/plain")
                 res.setHeader("Access-Control-Allow-Origin","*");
+                console.log("reqCounter:" + reqCounter)
                 res.write(api.addDefinition(word, definition, reqCounter));
                 res.end();
             })
