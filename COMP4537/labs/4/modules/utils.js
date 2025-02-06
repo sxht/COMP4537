@@ -16,6 +16,6 @@ module.exports.addDefinition = function(word, definition, reqCounter){
             return en.alreadyExists.replace("%1", word);
         }
     }
-    dictionary.append({word : definition})
+    dictionary.push({word : definition})
     return en.addSuccess.replace("%1", reqCounter).replace("%2", new Date().toString()).replace("%3", dictionary.length); 
 }
