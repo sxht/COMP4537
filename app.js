@@ -9,6 +9,7 @@ http.createServer(function (req, res) {
     const q = url.parse(req.url, true);
 
     if(req.method==="GET"){
+        console.log("get request sent")
         const word = q.query.word
         const definition = api.getDefinition(word);
 
@@ -24,6 +25,7 @@ http.createServer(function (req, res) {
         }
 
     } else if(req.method==="POST" && q.pathname.includes("/api/definitions/")){
+        console.log("Post request sent")
         if(req.headers["access-control-request-method"]){
             res.setHeader("Access-Control-Allow-Origin","*");
             res.setHeader("Access-Control-Allow-Methods","POST");
@@ -38,7 +40,7 @@ http.createServer(function (req, res) {
                 let word = params.get("word");
                 res.setHeader("Content-Type", "text/plain")
                 res.setHeader("Access-Control-Allow-Origin","*");
-                res.write(api.addDefinition(query));
+                res.write(api.addDefinition(word));
                 res.end();
             })
         }
