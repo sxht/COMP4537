@@ -3,9 +3,9 @@ const url = require('url');
 const fs = require('fs');
 const api = require('./COMP4537/labs/4/modules/utils');
 const en = require('./COMP4537/labs/4/lang/en/en');
+let reqCounter = 0;
 
 http.createServer(function (req, res) {
-    let reqCounter = 0;
     const q = url.parse(req.url, true);
 
     if(req.method==="GET" && q.pathname.includes("/api/definitions/")){
@@ -14,7 +14,7 @@ http.createServer(function (req, res) {
         const word = q.query.word
         const entry = api.getDefinition(word);
 
-        res.writeHead(200, {'Content-Type':'text/html', 
+        res.writeHead(200, {'Content-Type':'application/json', 
             "Access-Control-Allow-Origin":"*",
             "Access-Control-Allow-Methods":"*"
         });
