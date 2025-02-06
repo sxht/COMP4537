@@ -25,7 +25,7 @@ http.createServer(function (req, res) {
             console.log("entry found")
             res.end(`<p>${entry}</p>`);
         } else{
-            console.log("entry not found")
+            console.log("entry not found"+en.notFound)
             res.end(`<p>${en.notFound}</p>`);
         }
 

@@ -17,5 +17,5 @@ module.exports.addDefinition = function(word, definition, reqCounter){
         }
     }
     dictionary.push({word : definition})
-    return en.addSuccess.replace("%1", reqCounter).replace("%2", new Date().toString()).replace("%3", dictionary.length); 
+    return en.addSuccess.replace("%1", reqCounter.toString()).replace("%2", new Date().toString()).replace("%3", dictionary.length.toString()); 
 }
