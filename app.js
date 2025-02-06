@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
             "Access-Control-Allow-Methods":"*"
         });
 
-        if(entry){
+        if(entry!=null){
             res.end(`<p>${entry}</p>`);
         } else{
             res.end(`<p>${en.notFound}</p>`);
