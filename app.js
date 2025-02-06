@@ -8,7 +8,7 @@ http.createServer(function (req, res) {
 
     const q = url.parse(req.url, true);
 
-    if(req.method==="GET"){
+    if(req.method==="GET" && q.pathname.includes("/api/definitions/")){
         console.log("get request sent")
         const word = q.query.word
         const definition = api.getDefinition(word);
