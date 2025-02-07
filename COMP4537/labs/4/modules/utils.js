@@ -10,13 +10,13 @@ module.exports.getDefinition = function(word){
     return null;
 }
 
-module.exports.addDefinition = function(word, definition, reqCounter){
+module.exports.addDefinition = function(word, definition){
     for(let entry of dictionary){
         if(entry.word===word){
-            return en.alreadyExists.replace("%1", reqCounter).replace("%2", word);
+            return en.alreadyExists.replace("%1", word);
         }
     }
     dictionary.push({word, definition})
     console.log(dictionary)
-    return en.addSuccess.replace("%1", reqCounter.toString()).replace("%2", new Date().toString()).replace("%3", dictionary.length.toString()); 
+    return en.addSuccess.replace("%1", new Date().toString()).replace("%2", dictionary.length.toString()); 
 }

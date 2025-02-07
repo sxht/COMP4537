@@ -3,53 +3,69 @@ const url = require('url');
 const fs = require('fs');
 const api = require('./COMP4537/labs/4/modules/utils');
 const en = require('./COMP4537/labs/4/lang/en/en');
+
 let reqCounter = 0;
 
-http.createServer(function (req, res) {
+http.createServer((req, res) => {
     const q = url.parse(req.url, true);
 
-    if(req.method==="GET" && q.pathname.includes("/api/definitions/")){
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+
+    if (req.method === "GET" && q.pathname.startsWith("/api/definitions/")) {
         reqCounter++;
-        console.log("GET request sent")
-        const word = q.query.word
+        console.log("GET request sent");
+
+        const word = q.query.word;
         const entry = api.getDefinition(word);
 
-        res.writeHead(200, {'Content-Type':'application/json', 
-            "Access-Control-Allow-Origin":"*",
-            "Access-Control-Allow-Methods":"*"
+        res.writeHead(200);
+        res.end(JSON.stringify({
+            reqCounter,
+            entry: entry || en.notFound
+        }));
+
+    } else if (req.method === "POST" && q.pathname.startsWith("/api/definitions/")) {
+        reqCounter++;
+        console.log("POST request sent");
+
+        if (req.headers["access-control-request-method"]) {
+            res.writeHead(204);
+            return res.end();
+        }
+
+        let body = "";
+        req.on("data", chunk => {
+            body += chunk;
         });
 
-        if(entry!=null){
-            console.log("Entry found")
-            res.end(JSON.stringify({"reqCounter": reqCounter, "entry": entry}));
-        } else{
-            console.log("Entry not found")
-            res.end(en.notFound.replace("%1", reqCounter));
-        }
+        req.on("end", () => {
+            try {
+                const params = new URLSearchParams(body);
+                const word = params.get("word");
+                const definition = params.get("definition");
 
-    } else if(req.method==="POST" && q.pathname.includes("/api/definitions/")){
+                if (!word || !definition) {
+                    throw new Error("Missing required fields: 'word' and 'definition'");
+                }
+
+                const response = api.addDefinition(word, definition, reqCounter);
+                res.writeHead(201);
+                res.end(JSON.stringify({ reqCounter, response }));
+
+            } catch (error) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ reqCounter, error: error.message }));
+            }
+        });
+
+    } else {
         reqCounter++;
-        console.log("Post request sent")
-        if(req.headers["access-control-request-method"]){
-            res.setHeader("Access-Control-Allow-Origin","*");
-            res.setHeader("Access-Control-Allow-Methods","POST");
-            res.end("\nRequest# " + reqCounter);
-        } else{
-            let query ="";
-            req.on("data", function(chunk){
-                query+=chunk;
-            });
-            req.on("end", function() {
-                let params = new URLSearchParams(query);
-                let word = params.get("word");
-                let definition = params.get("definition")
-                res.setHeader("Content-Type", "text/plain")
-                res.setHeader("Access-Control-Allow-Origin","*");
-                res.write(api.addDefinition(word, definition, reqCounter));
-                res.end();
-            })
-        }
+        res.writeHead(404);
+        res.end(JSON.stringify({ reqCounter, error: "404: Not Found" }));
     }
+
 }).listen(8080, () => {
-    console.log('listening ...');
-})
+    console.log('Listening on port 8080...');
+});
