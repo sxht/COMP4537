@@ -10,7 +10,7 @@ http.createServer(function (req, res) {
 
     if(req.method==="GET" && q.pathname.includes("/api/definitions/")){
         reqCounter++;
-        console.log("get request sent")
+        console.log("GET request sent")
         const word = q.query.word
         const entry = api.getDefinition(word);
 
@@ -19,14 +19,12 @@ http.createServer(function (req, res) {
             "Access-Control-Allow-Methods":"*"
         });
 
-        console.log(entry)
-
         if(entry!=null){
-            console.log("entry found")
-            res.end(JSON.stringify(entry));
+            console.log("Entry found")
+            res.end(JSON.stringify({"reqCounter": reqCounter, "entry": entry}));
         } else{
-            console.log("entry not found")
-            res.end(`<p>${en.notFound}</p>`);
+            console.log("Entry not found")
+            res.end(en.notFound.replace("%1", reqCounter));
         }
 
     } else if(req.method==="POST" && q.pathname.includes("/api/definitions/")){
@@ -35,7 +33,7 @@ http.createServer(function (req, res) {
         if(req.headers["access-control-request-method"]){
             res.setHeader("Access-Control-Allow-Origin","*");
             res.setHeader("Access-Control-Allow-Methods","POST");
-            res.end();
+            res.end("\nRequest# " + reqCounter);
         } else{
             let query ="";
             req.on("data", function(chunk){
@@ -47,7 +45,6 @@ http.createServer(function (req, res) {
                 let definition = params.get("definition")
                 res.setHeader("Content-Type", "text/plain")
                 res.setHeader("Access-Control-Allow-Origin","*");
-                console.log("reqCounter:" + reqCounter)
                 res.write(api.addDefinition(word, definition, reqCounter));
                 res.end();
             })

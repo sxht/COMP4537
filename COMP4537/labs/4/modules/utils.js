@@ -13,7 +13,7 @@ module.exports.getDefinition = function(word){
 module.exports.addDefinition = function(word, definition, reqCounter){
     for(let entry of dictionary){
         if(entry.word===word){
-            return en.alreadyExists.replace("%1", word);
+            return en.alreadyExists.replace("%1", reqCounter).replace("%2", word);
         }
     }
     dictionary.push({word, definition})
