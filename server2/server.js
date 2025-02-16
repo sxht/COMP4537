@@ -44,9 +44,9 @@ function cleanQuery(query) {
     return null;
 }
 
-function checkDB(){
+function checkDB(res){
     const createTable = `CREATE TABLE IF NOT EXISTS patients (
-    patientid INT(11) PRIMARY KEY,
+    patientid INT(11) AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     dateOfBirth DATETIME
     );`
@@ -68,7 +68,7 @@ http.createServer(function (req, res) {
     });
 
     if (req.method === GET) {
-        checkDB()
+        checkDB(res)
         const q = url.parse(req.url, true);
         const sqlQuery = cleanQuery(q.query["query"]);
         console.log("q.query: ", q.query)
@@ -96,7 +96,7 @@ http.createServer(function (req, res) {
         });
     }
     if (req.method === POST && req.url === endPointRoot) {
-        checkDB()
+        checkDB(res)
         let body = '';
         req.on('data', function (chunk) {
             if (chunk != null) {
