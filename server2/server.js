@@ -48,7 +48,7 @@ function checkDB(){
     const createTable = `CREATE TABLE IF NOT EXISTS patients (
     patientid INT(11) PRIMARY KEY,
     name VARCHAR(100),
-    date DATE
+    dateOfBirth DATETIME
     );`
     console.log("IN checkDB")
     db.query(createTable, (err, data) =>{
