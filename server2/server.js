@@ -44,6 +44,19 @@ function cleanQuery(query) {
     return null;
 }
 
+function checkDB(){
+    const createTable = `CREATE TABLE IF NOT EXISTS patients (
+    patientid INT(11) PRIMARY KEY,
+    name VARCHAR(100),
+    date DATE
+    );`
+    db.query(createTable, (err, data) =>{
+        if(err){
+            return res.end(err);
+        }
+    })
+}
+
 http.createServer(function (req, res) {
     res.writeHead(200, {
         "Content-type": 'application/json',
@@ -52,6 +65,7 @@ http.createServer(function (req, res) {
     });
 
     if (req.method === GET) {
+        checkDB()
         const q = url.parse(req.url, true);
         const sqlQuery = cleanQuery(q.query["query"]);
         console.log("q.query: ", q.query)
@@ -79,6 +93,7 @@ http.createServer(function (req, res) {
         });
     }
     if (req.method === POST && req.url === endPointRoot) {
+        checkDB()
         let body = '';
         req.on('data', function (chunk) {
             if (chunk != null) {
