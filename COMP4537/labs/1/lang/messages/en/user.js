@@ -1,0 +1,6 @@
+const title = "Lab 1: JSON, Object Constructor, localStorage <br/> Steven Xie"
+const writerButtonLabel = "Writer"
+const readerButtonLabel = "Reader"
+const removeButtonLabel = "Remove"
+const addButtonLabel = "Add"
+const backButtonLabel = "Back"

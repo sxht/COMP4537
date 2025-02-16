@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#addButton {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: white;
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.noteText {
+  width: 33vw;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.removeButton {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: white;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#storeTime {
+  margin-bottom: 20px;
+  font-style: italic;
+}
