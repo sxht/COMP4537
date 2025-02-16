@@ -54,7 +54,8 @@ http.createServer(function (req, res) {
     if (req.method === GET) {
         const q = url.parse(req.url, true);
         const sqlQuery = cleanQuery(q.query["query"]);
-
+        console.log("q.query: ", q.query)
+        console.log("sqlQuery: ", sqlQuery)
         if (!sqlQuery || sqlQuery.split(' ')[0].toLowerCase() !== 'select') {
             const serverRes = {
                 status: 400,
