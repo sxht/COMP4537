@@ -50,10 +50,13 @@ function checkDB(){
     name VARCHAR(100),
     date DATE
     );`
+    console.log("IN checkDB")
     db.query(createTable, (err, data) =>{
         if(err){
+            console.log(err)
             return res.end(err);
         }
+        console.log(data);
     })
 }
 
