@@ -46,19 +46,14 @@ function cleanQuery(query) {
 
 http.createServer(function (req, res) {
     res.writeHead(200, {
-        "Context-type": 'application/json',
-        'access-control-allow-origin': '*',
-        'access-control-allow-methods': '*'
+        "Content-type": 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*'
     });
 
     if (req.method === GET) {
         const q = url.parse(req.url, true);
-        console.log("🔍 Full Request URL:", req.url);
-        console.log("🔍 Parsed Query Object:", q.query);
-
         const sqlQuery = cleanQuery(q.query["query"]);
-        console.log("🔍 Processed SQL Query:", sqlQuery);
-
 
         if (!sqlQuery || sqlQuery.split(' ')[0].toLowerCase() !== 'select') {
             const serverRes = {
@@ -93,12 +88,6 @@ http.createServer(function (req, res) {
         req.on('end', function() {
             const sqlQuery = decodeURIComponent(body.trim().replace(/^userQuery=/, ""));
             console.log(sqlQuery);
-
-            if (req.url === "/favicon.ico") {
-                console.log("Ignoring favicon request");
-                res.writeHead(204, { "Content-Type": "image/x-icon" });
-                return res.end();
-            }
 
             if (!sqlQuery) {
                 const serverRes = {
